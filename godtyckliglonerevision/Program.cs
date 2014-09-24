@@ -10,43 +10,28 @@ namespace godtyckliglonerevision
     {
         static void Main(string[] args)
         {
-        //Deklarerar variabler
-        //Array med antal löner
-        int numberOfSalaries = 0;
+            //Deklarerar variabler
+            //Array med antal löner
+            int numberOfSalaries = 0;
 
-        //Antal löner att mata in: 
-            while (true)  //Main-while: För att avsluta eller göra om
+            //Antal löner att mata in: 
+            do  //Main-while: För att avsluta eller göra om
             {
-                while (true) //ReadInt-while  för att läsa löner 
+                numberOfSalaries = ReadInt("Ange antalet löner: ");
+                Console.WriteLine();
+                if (numberOfSalaries > 1)
                 {
-                    numberOfSalaries = ReadInt("Ange antalet löner: ");
+                    ProcessSalaries(numberOfSalaries);
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Red;
                     Console.WriteLine();
-                    if (numberOfSalaries > 1)
-                    {
-                        ProcessSalaries(numberOfSalaries);
-                        break;
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.BackgroundColor = ConsoleColor.Red;
-                        Console.WriteLine();
 
-                        Console.WriteLine("Du måste mata in minst två löner för att kunna göra en beräkning!");
-                        Console.WriteLine();
-
-                        Console.BackgroundColor = ConsoleColor.Green;
-                        Console.WriteLine("Tryck valfri tangent för ny beräkning - Esc avslutar");
-                        Console.ResetColor();
-                        Console.WriteLine();
-
-                        if (Console.ReadKey(true).Key == ConsoleKey.Escape)
-                        {
-                            return;
-                        }
-                    }
-
-                } // ReadInt-while slut
+                    Console.WriteLine("Du måste mata in minst två löner för att kunna göra en beräkning!");
+                    Console.WriteLine();
+                }
 
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.BackgroundColor = ConsoleColor.Green;
@@ -56,17 +41,12 @@ namespace godtyckliglonerevision
 
                 Console.ResetColor();
                 Console.WriteLine();
-
-                if (Console.ReadKey(true).Key == ConsoleKey.Escape)
-                {
-                    return;
-                }
-            } // main-while slut
+            } while (Console.ReadKey(true).Key != ConsoleKey.Escape); // main-while slut
 
         }/////////// Main slut
 
         //Används för att läsa in användardata
-        static int ReadInt (string prompt)
+        static int ReadInt(string prompt)
         {
             string userInput = null;
             while (true)
@@ -88,17 +68,17 @@ namespace godtyckliglonerevision
                     Console.ResetColor();
                 }
             }
-            
+
         }///////// ReadInt slut
-        
+
         //ProcessSalaries() = läs in antalet löner. -> beräkna median, medel och lönespridning. -> skriv ut lönerna under. 
         static void ProcessSalaries(int numberOfSalaries)
         {
             int[] salaries = new int[numberOfSalaries];
-            
+
             for (int salaryCounter = 0; salaryCounter < salaries.Length; salaryCounter++)
             {
-                salaries[salaryCounter] = ReadInt("Ange lön nummer " + (salaryCounter+1) + ": ");
+                salaries[salaryCounter] = ReadInt("Ange lön nummer " + (salaryCounter + 1) + ": ");
             }
             Console.WriteLine();
             Console.WriteLine("-------------------------------");
@@ -132,15 +112,15 @@ namespace godtyckliglonerevision
             }
 
             //Average:
-                Console.WriteLine("Medellön:      {0, 10:c0}", salaries.Average());
+            Console.WriteLine("Medellön:      {0, 10:c0}", salaries.Average());
 
             //Spread:
             int salarySpread = salaries.Max() - salaries.Min();
-                Console.WriteLine("Lönespridning: {0, 10:c0}", salarySpread);
-                Console.WriteLine("-------------------------------");
+            Console.WriteLine("Lönespridning: {0, 10:c0}", salarySpread);
+            Console.WriteLine("-------------------------------");
 
             //Skriv ut lönerna med tre på varje rad:
-            for (int salaryPrint = 0; salaryPrint < salaries.Length; salaryPrint++)   
+            for (int salaryPrint = 0; salaryPrint < salaries.Length; salaryPrint++)
             {
                 if (salaryPrint % 3 == 0)
                 {
